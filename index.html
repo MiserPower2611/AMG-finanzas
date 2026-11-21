@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="referrer" content="strict-origin-when-cross-origin"><meta name="theme-color" content="#050e18"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><title>AMG · Tus finanzas, en equilibrio.</title><meta name="description" content="Tus cuentas, tu plan y tus objetivos de ahorro. AMG, a tu manera."><link rel="apple-touch-icon" href="assets/icon-180.png"><link rel="icon" href="assets/icon-192.png"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css"><script src="config.js"></script><script id="googleIdentityScript" src="https://accounts.google.com/gsi/client" async defer></script></head>
+<body class="welcome-open">
+<section id="welcomeGate" class="welcome-gate" aria-label="Bienvenida a AMG">
+ <div class="welcome-ambient" aria-hidden="true"><i></i><i></i></div>
+ <div class="welcome-content">
+  <div class="welcome-brand-stage"><div class="welcome-logo" role="img" aria-label="AMG">
+   <img class="welcome-logo-image" src="assets/amg-logo.webp" alt="" aria-hidden="true">
+  </div>
+  <div class="welcome-wordmark" aria-hidden="true">AMG</div></div><div id="welcomeStart" class="welcome-start">
+   <button id="welcomeEnter" class="primary welcome-enter" type="button">Entrar</button>
+   
+  </div>
+  <div id="welcomeLogin" class="welcome-login" hidden>
+   <h1>Tu espacio personal</h1>
+   <p>Inicia sesión con Google para acceder a tus cuentas.</p>
+   <div id="welcomeGoogleButton"></div>
+   <p id="welcomeAuthStatus" role="status" aria-live="polite"></p>
+   <button id="welcomeRetry" class="button" type="button" hidden>Reintentar acceso</button>
+   <button id="welcomeDemo" class="primary welcome-enter" type="button" hidden>Ver borrador</button>
+   <button id="welcomeBack" class="text-button" type="button">Volver</button>
+  </div>
+ </div>
+</section><aside><a class="brand" href="#inicio" aria-label="AMG"><img class="brand-image" src="assets/amg-logo.webp" alt="AMG"><span class="brand-word">AMG</span></a><p>Tus finanzas,<br>en equilibrio.</p><nav id="nav" aria-label="Navegación principal"></nav><div class="asidefoot">A tu manera.<b>AMG</b></div></aside><div class="shell"><header><a class="brand mobile-brand" href="#inicio" aria-label="AMG"><img class="brand-image" src="assets/amg-logo.webp" alt="AMG"><span class="brand-word">AMG</span></a><span id="status" role="status">Modo de prueba · datos de ejemplo</span><button id="profile" aria-label="Abrir perfil y apariencia">Mi perfil</button></header><div id="userMenu" class="user-menu" hidden aria-label="Opciones de usuario"></div><main id="app"></main><footer>Registro manual · Finanzas personales privadas</footer></div><dialog id="modal" aria-label="Formulario de AMG"></dialog><div id="toast" role="status"></div><script src="model.js"></script><script src="install.js"></script><script src="session.js"></script><script src="app.js"></script><script src="onboarding.js"></script><script src="welcome.js"></script></body></html>
