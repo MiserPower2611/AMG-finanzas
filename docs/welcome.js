@@ -19,7 +19,12 @@ function initGoogle(){
  }catch{status.textContent='No se ha podido cargar Google. Puedes volver a intentarlo.';retry.hidden=false;}
 }
 function openLogin(){loginVisible=true;start.hidden=true;login.hidden=false;initGoogle();document.getElementById('welcomeBack').focus({preventScroll:true});}
-document.getElementById('welcomeEnter').addEventListener('click',openLogin);
+document.getElementById('welcomeEnter').addEventListener('click',async()=>{
+ const button=document.getElementById('welcomeEnter');if(button.disabled)return;button.disabled=true;
+ try{if(configured()&&await window.AMG_RESUME_SESSION?.())return;openLogin();}
+ catch{openLogin();status.textContent='No hemos podido recuperar tu sesión. Comprueba tu conexión o vuelve a entrar con Google.';}
+ finally{button.disabled=false;}
+});
 document.getElementById('welcomeBack').addEventListener('click',()=>{loginVisible=false;start.hidden=false;login.hidden=true;document.getElementById('welcomeEnter').focus({preventScroll:true});});
 demo.addEventListener('click',()=>{if(!configured()&&canDemo()){let complete=false;try{complete=localStorage.getItem('amg-onboarding-demo-complete')==='1';}catch{}if(complete&&new URLSearchParams(location.search).get('setup')!=='1')enter();else window.dispatchEvent(new CustomEvent('amg-first-access',{detail:{demo:true,setupRequired:true,name:'Manolo'}}));}});
 retry.addEventListener('click',()=>{googleMounted=false;target.replaceChildren();initGoogle();});

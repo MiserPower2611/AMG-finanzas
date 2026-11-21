@@ -1,4 +1,4 @@
-/* Primer acceso y autorización de Drive. Ningún token se persiste en disco. */
+/* Primer acceso y autorización de Drive. Google tokens solo en memoria o servidor. */
 (()=>{'use strict';
 const cfg=window.AMG_CONFIG||{},esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let access='',expires=0,identity={},client=null,requesting=false,pending=null,layer=null,draft=null,working=false;
@@ -6,12 +6,23 @@ const colors={blue:'#3684ff',violet:'#9257ff',cyan:'#35c7ed',emerald:'#39d3aa',a
 function accessToken(){return expires>Date.now()+10000?access:'';}
 function clear(){access='';expires=0;identity={};}
 function authorize(){
- if(accessToken())return Promise.resolve();
+ if(window.AMG_SESSION?.token()||accessToken())return Promise.resolve();
+ if(identity.persistentAvailable)return authorizePersistent();
  if(requesting)return Promise.reject(Error('Google ya está esperando una respuesta.'));
  if(!cfg.googleClientId||!window.google?.accounts?.oauth2)return Promise.reject(Error('El acceso con Google está pendiente de activar.'));
  return new Promise((resolve,reject)=>{requesting=true;pending={resolve,reject};
  const fail=e=>{requesting=false;pending=null;reject(Error(e?.type==='popup_closed'?'Has cerrado Google. Tus datos siguen aquí; puedes volver a intentarlo.':'No se ha podido autorizar Drive. Permite la ventana de Google y vuelve a intentarlo.'));};
  try{client=google.accounts.oauth2.initTokenClient({client_id:cfg.googleClientId,scope:'openid email https://www.googleapis.com/auth/drive.file',include_granted_scopes:true,login_hint:identity.user||'',callback:r=>{requesting=false;pending=null;if(r.error){reject(Error('No has autorizado a AMG para crear y actualizar su hoja. Puedes volver a intentarlo.'));return;}if(!google.accounts.oauth2.hasGrantedAllScopes(r,'https://www.googleapis.com/auth/drive.file','openid')){reject(Error('Falta el permiso para la hoja de AMG.'));return;}access=r.access_token;expires=Date.now()+Number(r.expires_in||3600)*1000;resolve();},error_callback:fail});client.requestAccessToken({prompt:''});}catch(e){fail(e);}
+ });
+}
+function authorizePersistent(){
+ if(requesting)return Promise.reject(Error('Google ya está esperando una respuesta.'));
+ if(!window.google?.accounts?.oauth2)return Promise.reject(Error('Espera a que cargue Google y vuelve a pulsar.'));
+ requesting=true;
+ return new Promise((resolve,reject)=>{
+ const fail=()=>{requesting=false;reject(Error('No se ha podido autorizar el acceso. Vuelve a intentarlo con Google.'));};
+ try{const c=google.accounts.oauth2.initCodeClient({client_id:cfg.googleClientId,scope:'openid email https://www.googleapis.com/auth/drive.file',ux_mode:'popup',state:identity.authorizationNonce,login_hint:identity.user||'',select_account:false,
+ callback:async r=>{try{if(r.error||!r.code||r.state!==identity.authorizationNonce)throw Error('Google no ha confirmado la autorización.');const result=await window.AMG_CLOUD_REQUEST('connect',{code:r.code,authorizationNonce:identity.authorizationNonce});window.AMG_SESSION.accept(result);window.AMG_USE_SESSION();resolve();}catch(e){reject(e);}finally{requesting=false;}},error_callback:fail});c.requestCode();}catch{fail();}
  });
 }
 window.AMG_DRIVE={accessToken,clear,connect:()=>{access='';expires=0;return authorize();}};
