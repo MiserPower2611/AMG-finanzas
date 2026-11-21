@@ -82,3 +82,13 @@
  body :is(input,select,textarea,[contenteditable="true"]){font-size:16px}
  body .amount-step input{font-size:25px}
 }
+
+/* V8.2: tamaño explícito ANTES de recibir el foco; no hereda del label. */
+@media(max-width:900px), (any-pointer:coarse){
+ html body input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]),
+ html body select,html body textarea,html body [contenteditable="true"],html body [contenteditable="plaintext-only"]{
+  font-size:17px!important;line-height:1.4;
+ }
+ html body .amount-step input{font-size:25px!important}
+ html body .amount-instrument input{font-size:36px!important}
+}
