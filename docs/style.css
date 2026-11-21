@@ -75,3 +75,10 @@
  .welcome-content{min-height:calc(100dvh - var(--amg-safe-top) - env(safe-area-inset-bottom,0px));margin-top:var(--amg-safe-top);margin-bottom:env(safe-area-inset-bottom,0px)}
  dialog{max-height:calc(100dvh - var(--amg-safe-top) - env(safe-area-inset-bottom,0px) - 24px)}
 }
+
+/* V8.1: evita el zoom automático al enfocar campos pequeños en iOS.
+   No restringe el zoom manual ni modifica la escala del viewport. */
+@media(max-width:700px), (any-pointer:coarse){
+ body :is(input,select,textarea,[contenteditable="true"]){font-size:16px}
+ body .amount-step input{font-size:25px}
+}
