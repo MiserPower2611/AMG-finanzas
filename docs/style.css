@@ -92,3 +92,28 @@
  html body .amount-step input{font-size:25px!important}
  html body .amount-instrument input{font-size:36px!important}
 }
+
+/* V8.4: navegación y acciones con espacios independientes de la zona de iOS. */
+@media(max-width:700px){
+ :root{--amg-nav-height:calc(70px + env(safe-area-inset-bottom,0px))}
+ body>aside>#nav{
+  position:fixed;inset:auto 0 0;z-index:60;height:var(--amg-nav-height);
+  padding:7px max(8px,env(safe-area-inset-right,0px)) calc(7px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));
+  align-items:stretch;box-sizing:border-box;
+ }
+ body>aside>#nav a{min-height:0;justify-content:center;padding:4px;gap:4px;line-height:1.2}
+ body>aside>#nav a.active:after{bottom:0}
+ .shell>main{padding-bottom:calc(var(--amg-nav-height) + 24px)}
+ body[data-view="inicio"] .shell>main{padding-bottom:calc(var(--amg-nav-height) + 94px)}
+ body[data-view="inicio"] .home-actions{
+  position:fixed;z-index:50;bottom:calc(var(--amg-nav-height) + 12px);
+  left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));
+  width:auto;max-width:618px;margin:0 auto;padding:0;display:flex;flex-wrap:nowrap;gap:10px;
+ }
+ .home-actions .primary{min-width:0;min-height:50px;margin:0}
+ .home-actions .icon-button{flex:0 0 50px;min-height:50px}
+ /* Una transformación en main convertiría el botón fijo en relativo a main. */
+ #app.view-enter{animation-name:amg-mobile-page-reveal}
+ #toast{bottom:calc(var(--amg-nav-height) + 76px)}
+}
+@keyframes amg-mobile-page-reveal{from{opacity:.5}to{opacity:1}}
