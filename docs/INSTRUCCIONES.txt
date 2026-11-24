@@ -1,0 +1,13 @@
+AMG V9.1 · Campos de fecha en móvil
+
+1. En GitHub abre AMG-finanzas → docs.
+2. Add file → Upload files.
+3. Sube estos CUATRO archivos directamente dentro de docs: style.css, index.html, sw.js y date-fields.js (este último es nuevo). No subas la carpeta entera.
+4. Confirma Commit changes y espera a que GitHub Pages termine de publicar.
+5. Cierra completamente AMG y vuelve a abrirla con conexión. Si sigue cargando el diseño anterior, ciérrala y ábrela una segunda vez para completar la actualización.
+
+No cambies Apps Script, config.js, app.js, model.js, propiedades ni datos.
+
+El campo visible de fecha tiene ahora un contenedor propio de ancho limitado y altura de 46 px. El selector nativo del teléfono sigue abriéndose al tocarlo. La mejora se aplica a fechas, meses, fechas con hora y horas de los formularios.
+
+No se han ejecutado pruebas ni comprobaciones visuales, siguiendo tu indicación.
