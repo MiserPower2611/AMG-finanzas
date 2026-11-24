@@ -1,13 +1,12 @@
-AMG V9.1 · Campos de fecha en móvil
+AMG V9.2 · Eliminar presupuesto
 
 1. En GitHub abre AMG-finanzas → docs.
-2. Add file → Upload files.
-3. Sube estos CUATRO archivos directamente dentro de docs: style.css, index.html, sw.js y date-fields.js (este último es nuevo). No subas la carpeta entera.
-4. Confirma Commit changes y espera a que GitHub Pages termine de publicar.
-5. Cierra completamente AMG y vuelve a abrirla con conexión. Si sigue cargando el diseño anterior, ciérrala y ábrela una segunda vez para completar la actualización.
+2. Sube directamente estos TRES archivos, sustituyendo los existentes: app.js, index.html y sw.js.
+3. Confirma Commit changes y espera a que termine la publicación.
+4. Cierra AMG por completo y vuelve a abrirla con conexión. Si aparece la versión anterior, repite el cierre y la apertura una segunda vez.
 
-No cambies Apps Script, config.js, app.js, model.js, propiedades ni datos.
+No cambies Apps Script, config.js, model.js, style.css ni date-fields.js. Se conserva el ajuste de fechas de V9.1.
 
-El campo visible de fecha tiene ahora un contenedor propio de ancho limitado y altura de 46 px. El selector nativo del teléfono sigue abriéndose al tocarlo. La mejora se aplica a fechas, meses, fechas con hora y horas de los formularios.
+En Inicio → Disponible este mes → configuración del presupuesto encontrarás «Eliminar presupuesto». Tras confirmar, se eliminan los límites mensuales configurados y la repetición habitual; vuelve a aparecer «Definir presupuesto». No se borran cuentas, movimientos, objetivos ni presupuestos por categoría. El cambio se guarda en tu hoja de Google igual que los demás cambios de configuración.
 
-No se han ejecutado pruebas ni comprobaciones visuales, siguiendo tu indicación.
+No se han ejecutado pruebas ni revisiones visuales, siguiendo tu indicación.
