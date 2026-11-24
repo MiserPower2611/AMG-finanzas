@@ -1,6 +1,6 @@
 /* Solo recursos estáticos de esta app. No intercepta datos financieros ni Apps Script. */
-const CACHE='amg-copiloto-v8.4.0';
-const BASE=['./','index.html','style.css','style.css?v=8.4.0','model.js','app.js','welcome.js','onboarding.js','session.js','install.js','manifest.webmanifest','assets/amg-logo.webp','assets/nucleo.webp','assets/icon-180.png','assets/icon-192.png','assets/icon-512.png','assets/icon-maskable-512.png'];
+const CACHE='amg-copiloto-v9.0.0';
+const BASE=['./','index.html','style.css','style.css?v=9.0.0','model.js','model.js?v=9.0.0','app.js','app.js?v=9.0.0','welcome.js','onboarding.js','session.js','install.js','manifest.webmanifest','assets/amg-logo.webp','assets/nucleo.webp','assets/icon-180.png','assets/icon-192.png','assets/icon-512.png','assets/icon-maskable-512.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(BASE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('amg-copiloto-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{const u=new URL(e.request.url),root=new URL('./',self.location).pathname;if(e.request.method!=='GET'||u.origin!==self.location.origin||!u.pathname.startsWith(root))return;const rel=u.pathname.slice(root.length);if(!BASE.includes(rel)&&rel!=='')return;e.respondWith(fetch(e.request,{cache:'no-cache'}).then(r=>{if(r.ok){const copy=r.clone();e.waitUntil(caches.open(CACHE).then(c=>c.put(e.request,copy)));}return r;}).catch(()=>caches.open(CACHE).then(c=>c.match(e.request)).then(r=>r||(e.request.mode==='navigate'?caches.match('index.html'):Response.error()))));});

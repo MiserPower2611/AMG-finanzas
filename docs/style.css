@@ -117,3 +117,13 @@
  #toast{bottom:calc(var(--amg-nav-height) + 76px)}
 }
 @keyframes amg-mobile-page-reveal{from{opacity:.5}to{opacity:1}}
+
+/* V9 — native date controls stay inside the mobile dialog. */
+#modal,#modal form,#modal label,#modal fieldset,.filter-row,.filter-row>*{min-width:0;box-sizing:border-box}
+#modal form{max-width:100%}#modal label{display:block;max-width:100%}
+input[type=date],input[type=month],input[type=datetime-local],input[type=time]{display:block;box-sizing:border-box;width:100%;min-width:0;max-width:100%;min-inline-size:0;inline-size:100%;max-inline-size:100%;font-size:16px}
+input[type=date]::-webkit-date-and-time-value,input[type=month]::-webkit-date-and-time-value,input[type=datetime-local]::-webkit-date-and-time-value{min-width:0;text-align:left;margin:0}
+input[type=date]::-webkit-datetime-edit,input[type=month]::-webkit-datetime-edit,input[type=datetime-local]::-webkit-datetime-edit{min-width:0;padding:0}
+.month-picker{min-width:0;max-width:100%;box-sizing:border-box}.month-picker>label{min-width:0;overflow:hidden}.month-picker input[type=month]{max-width:100%;min-width:0}
+#modal .check{display:flex;gap:8px;align-items:flex-start}#modal .check input{flex:0 0 auto;width:20px;height:20px}
+.schedule-months{margin:16px 0;border:1px solid #8faddd55;border-radius:16px;padding:14px}.schedule-months[hidden]{display:none}.schedule-months>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.schedule-months label{display:flex!important;gap:5px;align-items:center;font-size:14px;margin:0}.schedule-months input{width:18px;height:18px;accent-color:#af79f0;flex:none}.schedule-months legend{font-size:14px;color:#c4d1e8}.plan-tools{flex-wrap:wrap;gap:12px;margin-bottom:24px}.scheduled-income{color:#77dfbc}.payment-card .positive{color:#77dfbc}
